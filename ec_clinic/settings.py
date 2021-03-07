@@ -22,10 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-SECRET_KEY = 'h-96_9r)h)k7m#p_0i&4o1_i($886969bp15g+8o0u#$l3tb+0'
-
-ALLOWED_HOSTS = ['.herokuapp.com']
-
+ALLOWED_HOSTS = ['.pythonanywhere.com']
 
 # Application definition
 
@@ -118,7 +115,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 try:
-    print('local settings')
-    from local_settings import *
+    from ec_clinic.local_settings import *
+    print("DEBUG", DEBUG)
 except ImportError:
     pass
