@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
+{% extends 'inventory/base.html' %}
 
-  </head>
+{% block content %}
+  <form action={% url 'add_donation' %} method='post'>
+    {% csrf_token %}
+    {{form}}
 
-  <body>
-    hi
-  </body>
-
-</html>
+    <input type='submit' class='btn btn-primary' value='Submit Donation'>
+  </form>
+{% endblock %}
