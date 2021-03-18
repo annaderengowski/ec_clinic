@@ -7,6 +7,6 @@ def stock_list(request):
 
     return render(request, 'inventory/stock_list.html', {'simples': simples, 'remedies': remedies})
 
-def add_simple(request):
+def add_donation(request):
 
-    return render(request, 'inventory/add_simple.html', {})
+    return render(request, 'inventory/add_donation.html', {})
