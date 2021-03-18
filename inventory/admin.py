@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Herb, PreparationType, Volunteer, Donor, Remedy
+from .models import Herb, Donor, SimpleInventory, RemedyInventory, Donation
 
 admin.site.register(Herb)
-admin.site.register(PreparationType)
-admin.site.register(Volunteer)
 admin.site.register(Donor)
-admin.site.register(Remedy)
+admin.site.register(SimpleInventory)
+admin.site.register(RemedyInventory)
+admin.site.register(Donation)

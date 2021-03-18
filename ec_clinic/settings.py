@@ -121,6 +121,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 try:
     from ec_clinic.local_settings import *
-    print("DEBUG", DEBUG)
+    print("Running with local_settings.py, DEBUG is ", DEBUG)
 except ImportError:
     pass

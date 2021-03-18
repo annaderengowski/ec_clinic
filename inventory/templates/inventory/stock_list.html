@@ -1,0 +1,51 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+      <h1>
+        Simples <a class="btn btn-primary" href="#" role="button">Add Simple</a>
+      </h1>
+      <table id="simples" class="datatable">
+        <thead>
+          <tr>
+           <th>Type</th>
+           <th>Herb</th>
+           <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for simple in simples %}
+          <tr>
+           <td>{{simple.type}}</td>
+           <td>{{simple.herb}}</td>
+           <td>{{simple.quantity}} ounces</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1>
+        Preparations <a class="btn btn-primary" href="#" role="button">Add Preparation</a>
+      </h1>
+      <table id="remedies" class="datatable">
+        <thead>
+          <tr>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Herbs</th>
+           <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for remedy in remedies %}
+          <tr>
+           <td>{{remedy.name}}</td>
+           <td>{{remedy.type}}</td>
+           <td>
+             {{ remedy.herbs.all|join:", " }}
+           </td>
+           <td>{{remedy.quantity}} {{remedy.units}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}

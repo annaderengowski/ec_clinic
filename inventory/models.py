@@ -4,26 +4,33 @@ from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+TYPE_CHOICES = (
+    ('tincture', 'Tincture'),
+    ('dried', 'Dried'),
+    ('oil', 'Oil'),
+    ('glycerite', 'Glycerite'),
+    ('tea_blend', 'Tea blend'),
+    ('fire_cider', 'Fire cider'),
+    ('salve', 'Salve'),
+    ('throat_spray', 'Throat spray'),
+    ('wound_spray', 'Wound spray'),
+    ('bitters', 'Bitters'),
+    ('syrup', 'Syrup'),
+)
+
+REMEDY_UNIT_CHOICES = (
+    ('ounces', 'ounces'),
+    ('1_oz_jar', '1 oz jars'),
+    ('2_oz_jar', '2 oz jars'),
+    ('4_oz_jar', '4 oz jars'),
+)
+
 class Herb(models.Model):
     common_name = models.CharField(max_length=100, blank=False)
     binomial = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
         return f'{self.common_name} ({self.binomial})'
-
-class PreparationType(models.Model):
-    name = models.CharField("name of preparation type", max_length=100, blank=False)
-
-    def __str__(self):
-        return self.name
-
-class Volunteer(models.Model):
-    name = models.CharField("name of volunteer", max_length=200, blank=False)
-    phone = PhoneNumberField(blank=False)
-    email = models.EmailField(blank=False)
-
-    def __str__(self):
-        return self.name
 
 class Donor(models.Model):
     name = models.CharField("donor's name", max_length=200, blank=False)
@@ -34,23 +41,58 @@ class Donor(models.Model):
     def __str__(self):
         return self.name
 
-# class Simple(model.Model): ???
+class SimpleInventory(models.Model):
+    type = models.CharField(
+        max_length = 20,
+        choices = TYPE_CHOICES,
+        default = 'tincture'
+    )
+    quantity = models.IntegerField(blank=False)
+    herb = models.ForeignKey(
+        Herb,
+        on_delete=models.PROTECT
+    )
 
-class Remedy(models.Model):
+    def __str__(self):
+        return f'{self.herb} {self.type}'
+
+class RemedyInventory(models.Model):
+    name = models.CharField("remedy name", max_length=200, blank=False)
+    herbs = models.ManyToManyField(Herb)
+    quantity = models.IntegerField(blank=False)
+    units = models.CharField(
+        max_length = 20,
+        choices = REMEDY_UNIT_CHOICES,
+        default = 'ounces'
+    )
+    type = models.CharField(
+        max_length = 20,
+        choices = TYPE_CHOICES,
+        default = 'tincture'
+    )
+
+    def __str__(self):
+        return self.name
+
+class Donation(models.Model):
     name = models.CharField("remedy name", max_length=200, blank=False)
     quantity = models.IntegerField(blank=False)
-    units = models.CharField(max_length=30, blank=False)
+    units = models.CharField(
+        max_length = 20,
+        choices = REMEDY_UNIT_CHOICES,
+        default = 'ounces'
+    )
     source_of_herbs = models.TextField(blank=False)
     date_made = models.DateField(blank=False)
     best_by_date = models.DateField(blank=False)
-    contains_alcohol = models.BooleanField(default=False)
     donor = models.ForeignKey(
         Donor,
         on_delete=models.PROTECT
     )
-    type = models.ForeignKey(
-        PreparationType,
-        on_delete=models.PROTECT
+    type = models.CharField(
+        max_length = 20,
+        choices = TYPE_CHOICES,
+        default = 'tincture'
     )
     herbs = models.ManyToManyField(Herb)
     notes = models.TextField(blank=True)
