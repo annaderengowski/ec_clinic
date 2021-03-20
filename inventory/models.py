@@ -76,6 +76,11 @@ class RemedyInventory(models.Model):
 
 class Donation(models.Model):
     name = models.CharField("remedy name", max_length=200, blank=False)
+    type = models.CharField(
+        max_length = 20,
+        choices = TYPE_CHOICES,
+        default = 'tincture',
+    )
     quantity = models.IntegerField(blank=False)
     units = models.CharField(
         max_length = 20,
@@ -88,11 +93,6 @@ class Donation(models.Model):
     donor = models.ForeignKey(
         Donor,
         on_delete=models.PROTECT
-    )
-    type = models.CharField(
-        max_length = 20,
-        choices = TYPE_CHOICES,
-        default = 'tincture'
     )
     herbs = models.ManyToManyField(Herb)
     notes = models.TextField(blank=True)

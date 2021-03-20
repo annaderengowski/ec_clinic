@@ -6,3 +6,7 @@ h1 {
   width: 80%;
   margin: 15px;
 }
+
+.text-right {
+  text-align: right;
+}

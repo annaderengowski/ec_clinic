@@ -3,7 +3,18 @@
 {% block content %}
   <form action={% url 'add_donation' %} method='post'>
     {% csrf_token %}
-    {{form}}
+    {{ form.non_field_errors }}
+
+    {% for field in form.visible_fields %}
+    <div class='row'>
+      <div class='col-3 text-right'>
+        {{ field.label_tag }}
+      </div>
+      <div class='col-9'>
+        {{ field }}
+      </div>
+    </div>
+    {% endfor %}
 
     <input type='submit' class='btn btn-primary' value='Submit Donation'>
   </form>
