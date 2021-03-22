@@ -1,0 +1,17 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+  <h1>Herb List</h1>
+  <form>
+  <ul>
+    {% for simple in simples %}
+    <li> <input type="number" id="simple" name="simple"> {{simple.herb}} ({{simple.type}})</li>
+    {% endfor %}
+    {% for remedy in remedies %}
+    <li> <input type="number" id="simple" name="simple"> {{remedy.name}} ({{remedy.type}})</li>
+    {% endfor %}
+  </ul>
+
+  <button id="update" class="btn btn-primary" type="submit">Update Inventory</button>
+  </form>
+{% endblock %}

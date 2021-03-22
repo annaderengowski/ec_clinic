@@ -11,3 +11,6 @@ class DonationForm(ModelForm):
             'date_made': DateInput(attrs={'type': 'date'}),
             'best_by_date': DateInput(attrs={'type': 'date'})
         }
+
+# class DispenseForm(Form):
+    #TODO
